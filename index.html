@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marcus Wong | White Hat Portfolio</title>
+<meta name="description" content="Marcus Wong, Computer Engineering graduate from Temasek Polytechnic focused on ethical hacking, Linux and secure IoT.">
+<meta name="theme-color" content="#0a0e14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ BOOT SEQUENCE ============ -->
+<div id="flash" aria-hidden="true"><b id="flashTxt"></b></div>
+<div id="boot" role="status" aria-live="polite">
+  <pre id="bootlog"></pre>
+  <div id="bootbar"><span></span></div>
+  <button class="btn ghost" id="skip" type="button">skip boot [esc]</button>
+</div>
+
+<!-- ============ TOP PANEL (Kali XFCE-style) ============ -->
+<header id="panel">
+  <a href="#home" class="logo" aria-label="Home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6l-9-4Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <nav id="ws" aria-label="Sections">
+    <a href="#home" data-s="home"><i>1</i><span>home</span></a>
+    <a href="#about" data-s="about"><i>2</i><span>about</span></a>
+    <a href="#experience" data-s="experience"><i>3</i><span>log</span></a>
+    <a href="#files" data-s="files"><i>4</i><span>files</span></a>
+    <a href="#contact" data-s="contact"><i>5</i><span>contact</span></a>
+  </nav>
+  <div class="tray">
+    <div id="teams" role="group" aria-label="Team mode">
+      <button type="button" data-team="white" aria-pressed="true" title="White hat: ethical hacking"><i></i><span>white</span></button>
+      <button type="button" data-team="red" aria-pressed="false" title="Red team: authorised offensive security"><i></i><span>red</span></button>
+      <button type="button" data-team="green" aria-pressed="false" title="Green hat: still learning"><i></i><span>green</span></button>
+    </div>
+    <button type="button" id="teamHelp" aria-expanded="false" aria-controls="teamPop" title="What are these modes?">?</button>
+    <button id="termBtn" type="button" title="Open terminal (Ctrl+Alt+T or `)" aria-label="Open terminal">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m6.5 9 3 3-3 3M11.5 15h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>terminal</span>
+    </button>
+    <span id="clock" aria-hidden="true">00:00</span>
+  </div>
+  <div id="prog" aria-hidden="true"><span></span></div>
+  <div id="teamPop" hidden role="dialog" aria-label="Hacker modes explained">
+    <b>hacker mode</b>
+    <p>Changes the site's colours and how the terminal replies. Just for fun, and your choice is remembered.</p>
+    <button type="button" data-team="white"><i></i><span><strong>White hat</strong>an ethical hacker who only tests with permission</span></button>
+    <button type="button" data-team="red"><i></i><span><strong>Red team</strong>authorised attackers who test an organisation's defences</span></button>
+    <button type="button" data-team="green"><i></i><span><strong>Green hat</strong>a newcomer still learning the craft</span></button>
+  </div>
+</header>
+
+<!-- parallax background layers -->
+<div id="bg" aria-hidden="true">
+  <canvas id="rain"></canvas>
+  <canvas id="net"></canvas>
+  <div class="layer hexl" data-speed="0.15"></div>
+  <div class="layer floor" data-speed="0.05"></div>
+</div>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section id="home">
+    <div class="giant" id="giant" data-speed="-0.35" aria-hidden="true">WHITE&nbsp;HAT</div>
+    <div class="hero-grid">
+      <div class="win hero-win" data-speed="0.08">
+        <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span><span class="nu">marcus</span>@<span class="nh">kali</span>: ~</span></div>
+        <div id="tty" aria-live="polite"></div>
+      </div>
+      <aside class="hero-side" data-speed="-0.12">
+        <div class="hat"><span class="led"></span>mode: <b id="hatLabel">white hat</b> · <span id="hatNote">authorised testing only</span></div>
+        <p class="lede">Computer Engineering graduate turning a hardware-and-software background toward <em id="ledeTerm">ethical hacking</em>, network security and secure IoT.</p>
+        <div class="cta">
+          <a class="btn" href="#files">explore files</a>
+          <a class="btn ghost" href="MarcusWong_Resume.pdf" download>download resume</a>
+          <button class="btn ghost" type="button" data-open-term>open terminal</button>
+        </div>
+        <p class="hint">tip: press <kbd>`</kbd> or <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> anywhere</p>
+      </aside>
+    </div>
+    <a href="#about" class="scrolldown" aria-label="Scroll to about"><span>scroll</span><i></i></a>
+  </section>
+
+  <!-- ============ MARQUEE SLIDER ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track" data-dir="1">linux · python · mqtt · raspberry pi · aws · react · typescript · java · c# · tensorflow · opencv · linux · python · mqtt · raspberry pi · aws · react · typescript · java · c# · tensorflow · opencv ·&nbsp;</div>
+    <div class="track alt" data-dir="-1">secure iot // privacy by design // network security // defend what you build // secure iot // privacy by design // network security // defend what you build //&nbsp;</div>
+  </div>
+
+  <!-- ============ ABOUT (neofetch) ============ -->
+  <section id="about">
+    <h2 class="cmd" data-title="About me" data-cmd="cat about.txt">About me</h2>
+    <div class="win reveal">
+      <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span>neofetch</span></div>
+      <div class="neo">
+<pre class="ascii" aria-hidden="true">
+        .-~~~~~~~-.
+      .'  _______  '.
+     /   |       |   \
+    |    |_______|    |
+____|_________________|____
+(___________________________)
+
+    [ <span id="asciiMode">white hat mode</span> ]
+    [ <span id="asciiNote">authorised only</span> ]
+</pre>
+        <div class="kv">
+          <div class="who"><b class="nu">marcus</b>@<b class="nh">kali</b></div>
+          <div class="rule">-----------------</div>
+          <div><span>OS</span>Marcus Wong · <b id="osLine">white hat edition</b></div>
+          <div><span>Education</span>Diploma in Computer Engineering, Temasek Polytechnic</div>
+          <!-- <div><span>Origin</span>Common Engineering → hardware ⇄ software</div> -->
+          <div><span>Elective</span>IOT security · Cisco Labs · data privacy</div>
+          <div><span>Shell</span>bash (try it: <button class="link" type="button" data-open-term>open terminal</button>)</div>
+        </div>
+      </div>
+      <div class="about-txt">
+        <p>I'm Marcus, a recent Computer Engineering graduate (Diploma, Temasek Polytechnic). I started in Common Engineering, got hooked on how hardware and software talk to each other, and I'm now pointing that curiosity at cybersecurity.</p>
+        <p>My projects already touch security: privacy-compliant video pipelines under PDPA, MQTT messaging between embedded devices, and Linux-based hardware. Next I want to go deeper on secure networking and defending the systems I build.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE (horizontal scroll slider) ============ -->
+  <section id="experience">
+    <div class="pin">
+      <h2 class="cmd" data-title="Experience" data-cmd="cat experience.log">Experience</h2>
+      <div class="hrail" aria-hidden="true"><span></span></div>
+      <div class="htrack">
+        <article class="commit win">
+          <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span>commit a3f9c21</span></div>
+          <div class="cbody">
+            <div class="meta"><span class="hash">HEAD → main</span> 2025-10 to 2026-02 · Temasek Polytechnic</div>
+            <h3>Major Project: anti-theft deterrence system</h3>
+            <ul>
+              <li>Upgraded an AI self-checkout theft system in a team of 3, using YOLOv12n and a Hailo-8 accelerator for real-time detection.</li>
+              <li>Built PDPA-compliant pipelines that black out sensitive customer areas (ROI masking) before incidents are logged.</li>
+              <li>Trained the model on 7 new barcode-blocking scenarios to raise detection accuracy.</li>
+              <li>Wired a Raspberry Pi 5 to MQTT alerts and 12V hardware triggers.</li>
+            </ul>
+            <span class="tg w">privacy</span><span class="tg">MQTT</span><span class="tg">Linux</span><span class="tg">computer vision</span>
+          </div>
+        </article>
+        <article class="commit win">
+          <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span>commit 7be04d8</span></div>
+          <div class="cbody">
+            <div class="meta"><span class="hash">overseas</span> 2025-05 to 2025-08 · Fukuoka Institute of Technology, Japan</div>
+            <h3>Overseas internship</h3>
+            <ul>
+              <li>Migrated a legacy IoT control panel to React and TypeScript with real-time tracking of composting phases.</li>
+              <li>Researched IoT and sustainability to improve compost robot efficiency.</li>
+              <li>Presented technical demos to international visitors at Osaka Expo 2025.</li>
+              <li>Featured in a Japanese news article (<a href="https://www.nishinippon.co.jp/item/1357276/" target="_blank" rel="noopener noreferrer">read it</a>).</li>
+            </ul>
+            <span class="tg">React</span><span class="tg">IoT</span><span class="tg">AWS</span>
+          </div>
+        </article>
+        <!-- Add security work here (labs, CTFs, certifications) as another <article class="commit win"> -->
+        <article class="commit win next">
+          <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span>branch: feature/next</span></div>
+          <div class="cbody">
+            <div class="meta"><span class="hash pending">uncommitted</span> next up</div>
+            <h3>Going deeper on security</h3>
+            <ul>
+              <li>Secure networking and the protocols my devices already speak.</li>
+              <li>Defending the embedded and Linux systems I build.</li>
+              <li>Labs, CTFs and write-ups will be committed here.</li>
+            </ul>
+            <span class="tg b">network security</span><span class="tg b">secure iot</span>
+          </div>
+        </article>
+      </div>
+      <div class="hcount" aria-hidden="true"><b id="hc">01</b> / 03</div>
+    </div>
+  </section>
+
+  <!-- ============ FILE EXPLORER (projects + skills) ============ -->
+  <section id="files">
+    <h2 class="cmd" data-title="Projects, skills &amp; certificates" data-cmd="open ~/projects">Projects, skills &amp; certificates</h2>
+    <div class="win fm reveal" id="fm">
+      <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span id="fmTitle">projects - File Manager</span></div>
+      <div class="fm-tools">
+        <button type="button" id="fmBack" aria-label="Back" title="Back">&larr;</button>
+        <button type="button" id="fmFwd" aria-label="Forward" title="Forward">&rarr;</button>
+        <button type="button" id="fmUp" aria-label="Up one folder" title="Up (Backspace)">&uarr;</button>
+        <nav id="crumbs" aria-label="Path"></nav>
+        <label class="search"><span class="sr">Filter files</span><input id="fmFilter" type="search" placeholder="filter…" autocomplete="off"></label>
+        <button type="button" id="fmView" aria-label="Toggle list view" title="Grid / list">&#9638;</button>
+      </div>
+      <div class="fm-body">
+        <aside class="fm-side">
+          <h4>places</h4>
+          <button type="button" data-go="/home/marcus"><span class="ic home"></span>home</button>
+          <button type="button" data-go="/home/marcus/projects"><span class="ic dir"></span>projects</button>
+          <button type="button" data-go="/home/marcus/skills"><span class="ic dir"></span>skills</button>
+          <button type="button" data-go="/home/marcus/certificates"><span class="ic dir"></span>certificates</button>
+          <h4>tags</h4>
+          <button type="button" data-tag="iot"><span class="ic tag"></span>#iot</button>
+          <button type="button" data-tag="software"><span class="ic tag"></span>#software</button>
+          <button type="button" data-tag="ai"><span class="ic tag"></span>#ai</button>
+          <h4>actions</h4>
+          <button type="button" id="fmTerm"><span class="ic sh"></span>terminal here</button>
+        </aside>
+        <div class="fm-main">
+          <div id="fmGrid" class="fm-grid" role="list"></div>
+          <article id="fmReadme" class="readme" hidden></article>
+        </div>
+      </div>
+      <div class="fm-status" id="fmStatus"></div>
+
+      <!-- file viewer (text / image) -->
+      <div id="viewer" class="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="vTitle">
+        <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span id="vTitle"></span><button type="button" id="vClose" class="x" aria-label="Close viewer">&times;</button></div>
+        <div class="vbody" id="vBody"></div>
+        <div class="vnav" id="vNav">
+          <button type="button" id="vPrev" aria-label="Previous image">&larr; prev</button>
+          <span id="vCount"></span>
+          <button type="button" id="vNext" aria-label="Next image">next &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <h2 class="cmd" data-title="Contact me" data-cmd="./contact_me.sh">Contact me</h2>
+
+    <div class="tunnel reveal" aria-hidden="true">
+      <div class="node you"><div class="ring"></div><b>you</b><small>visitor</small></div>
+      <div class="pipe"><span class="pkt"></span><span class="pkt"></span><span class="pkt"></span><em id="hs">tls 1.3 · waiting for handshake</em></div>
+      <div class="node me"><div class="ring"></div><b>marcus</b><small>kali</small></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="ports reveal">
+        <div class="scanline">$ nmap -sV marcus.wong</div>
+        <div class="phead"><span>PORT</span><span>STATE</span><span>SERVICE</span></div>
+        <a class="port" href="https://www.linkedin.com/in/marcus-wong-0788242aa/" target="_blank" rel="noopener noreferrer">
+          <span>443/tcp</span><span class="open">open</span><span>linkedin</span><i>&rarr;</i>
+        </a>
+        <a class="port" href="https://github.com/Yuutsuuu" target="_blank" rel="noopener noreferrer">
+          <span>22/tcp</span><span class="open">open</span><span>github</span><i>&rarr;</i>
+        </a>
+        <a class="port" href="MarcusWong_Resume.pdf" download>
+          <span>8080/tcp</span><span class="open">open</span><span>resume.pdf</span><i>&darr;</i>
+        </a>
+        <p class="note">Open to internships, projects and conversations about cybersecurity.</p>
+      </div>
+
+      <form id="form" class="win compose reveal" action="https://formspree.io/f/xpqjooqd" method="POST">
+        <div class="bar"><b class="dots"><i></i><i></i><i></i></b><span>compose: encrypted message</span></div>
+        <div class="cbody">
+          <label for="name"><span class="pr">from.name&gt;</span></label><input id="name" name="name" required autocomplete="name" placeholder="your name">
+          <label for="email"><span class="pr">from.email&gt;</span></label><input id="email" name="email" type="email" required autocomplete="email" placeholder="you@domain.com">
+          <label for="msg"><span class="pr">payload&gt;</span></label>
+          <div class="msgwrap"><textarea id="msg" name="message" rows="5" required placeholder="Enter your message…"></textarea><div id="cipher" aria-hidden="true"></div></div>
+          <input type="hidden" name="_subject" value="Portfolio message">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+          <div class="send-row">
+            <button class="btn" type="submit">encrypt &amp; send</button>
+            <span class="chars" id="chars">0 bytes</span>
+          </div>
+          <p id="fs" role="status"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="ps1">┌──(<span class="u">marcus</span>㉿<span class="h">kali</span>)-[~]</span>
+  <span>└─<span class="sig">$</span> echo "© 2026 Marcus Wong · plain html, css and js · hack ethically"</span>
+</footer>
+
+<!-- ============ FLOATING BASH TERMINAL ============ -->
+<div id="term" class="win term" hidden role="dialog" aria-label="Bash terminal">
+  <div class="bar" id="termBar">
+    <b class="dots"><button type="button" id="tClose" aria-label="Close terminal"></button><button type="button" id="tMin" aria-label="Minimise terminal"></button><button type="button" id="tMax" aria-label="Maximise terminal"></button></b>
+    <span><span class="nu">marcus</span>@<span class="nh">kali</span>: <span id="tPath">~</span></span>
+  </div>
+  <div class="tbody" id="tBody">
+    <div id="tOut"></div>
+    <div class="tline" id="tLine">
+      <div class="ps1"></div>
+      <div class="inrow"><span class="dollar">└─<span class="sig">$</span></span><input id="tIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
